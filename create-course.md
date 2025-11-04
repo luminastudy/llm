@@ -4,44 +4,50 @@
 
 These instructions guide you through creating a structured course for the Lumina Study platform using the official block schema. You will use a **hybrid approach**: first gathering requirements through interactive questions, then generating the course structure based on templates.
 
+**CRITICAL**: Do not assume any schema structure. You must fetch and analyze the current schema before generating any course content. The schema evolves, and what may have been true in previous versions may not be true now.
+
+## Process Overview
+
+The course creation process follows these phases:
+
+1. **Schema Fetching** (Required First Step): Retrieve and analyze the current block schema
+2. **Discovery** (Interactive): Ask the user questions about their course requirements
+3. **Generation** (Template-Based): Create the course structure following the fetched schema
+4. **Validation**: Verify the output conforms to the schema
+5. **Refinement**: Iterate with the user based on feedback
+
 ## Schema Information
 
-Before beginning, familiarize yourself with the block schema:
+**STEP 1: Always start here.** Before beginning any course creation, fetch and analyze the block schema:
 
 1. **Read the latest schema documentation**:
    - URL: `https://raw.githubusercontent.com/luminastudy/block/main/README.md`
    - Use WebFetch or similar tools to retrieve current schema information
 
 2. **Fetch the JSON schema for validation**:
-   - Extract the current version number from the README
+   - Extract the current version number from the README (look for patterns like "v0.1", "Version 0.1", or similar version indicators)
    - Construct the schema URL: `https://raw.githubusercontent.com/luminastudy/block/main/schema/v<version>/block.schema.json`
    - Replace `<version>` with the version number found in the README
+   - **Parse and analyze the schema** to understand:
+     - Required properties
+     - Property types and structures
+     - Validation rules
+     - Allowed additional properties
+     - Default values
+     - Nested object structures
 
-## Block Schema Structure
+## Understanding the Schema
 
-Each block must contain:
+**Do not assume the schema structure.** Always fetch and analyze the actual JSON schema before generating courses. Key things to extract from the schema:
 
-```json
-{
-  "title": {
-    "he_text": "string (Hebrew title)",
-    "en_text": "string (English title)"
-  },
-  "prerequisites": [
-    // Array of block objects (blocks that must be completed first)
-  ],
-  "parents": [
-    // Array of block objects (blocks this belongs to)
-  ]
-}
-```
+1. **Required vs Optional Properties**: Check the `required` array in the schema
+2. **Property Types**: Understand if properties are objects, arrays, strings, etc.
+3. **Nested Structures**: Look for recursive references or nested object definitions
+4. **Constraints**: Check for patterns, min/max values, enum restrictions
+5. **Bilingual Support**: Identify which fields support multiple languages and how they're structured
+6. **Relationship Properties**: Understand how blocks relate to each other (prerequisites, parents, children, etc.)
 
-**Key Points**:
-- All three properties (`title`, `prerequisites`, `parents`) are required
-- Title must have both Hebrew and English text
-- Arrays can be empty but must be present
-- Blocks support recursive nesting (prerequisites and parents contain block objects)
-- Additional properties are allowed for extended metadata
+Once you've analyzed the schema, you'll know exactly how to structure blocks correctly.
 
 ## Workflow
 
@@ -73,73 +79,46 @@ Ask the user the following questions to gather requirements:
 
 ### Phase 2: Generation (Template-Based)
 
-Based on the user's answers, generate the course structure:
+Based on the user's answers and the schema you've fetched, generate the course structure:
 
-#### Step 1: Create the Top-Level Course Block
+#### Step 1: Analyze the Fetched Schema
 
-```json
-{
-  "title": {
-    "he_text": "[Hebrew course name]",
-    "en_text": "[English course name]"
-  },
-  "prerequisites": [],
-  "parents": []
-}
-```
+Before generating any content:
+- Identify all required properties for a block
+- Understand the structure of bilingual fields (if applicable)
+- Determine how relationships (prerequisites, parents, etc.) are represented
+- Note any additional optional properties that might be useful
 
-#### Step 2: Create Main Topic Blocks
+#### Step 2: Create the Top-Level Course Block
 
-For each main topic identified:
+Using the schema structure, create a block with all required properties. Ensure you:
+- Include all required fields as defined in the schema
+- Use the correct structure for bilingual text fields
+- Initialize relationship arrays (prerequisites, parents, etc.) appropriately
+- Add any optional properties that enhance the course
 
-```json
-{
-  "title": {
-    "he_text": "[Hebrew topic name]",
-    "en_text": "[English topic name]"
-  },
-  "prerequisites": [],
-  "parents": [
-    // Reference to the top-level course block
-  ]
-}
-```
+#### Step 3: Create Main Topic Blocks
 
-#### Step 3: Add Prerequisites
+For each main topic identified in Phase 1:
+- Create a block following the same schema structure
+- Populate bilingual fields with appropriate content
+- Establish relationships to parent blocks (if the schema supports this)
+- Ensure all required properties are present
 
-If topics have sequential dependencies:
+#### Step 4: Add Prerequisites and Relationships
 
-```json
-{
-  "title": {
-    "he_text": "נושא ב",
-    "en_text": "Topic B"
-  },
-  "prerequisites": [
-    // Include the full block object for Topic A
-  ],
-  "parents": [
-    // Reference to parent course
-  ]
-}
-```
+If topics have dependencies:
+- Use the relationship mechanism defined in the schema
+- Ensure prerequisite blocks are properly referenced or included
+- Maintain referential integrity between related blocks
+- Follow the schema's specification for how blocks reference each other
 
-#### Step 4: Create Nested Sub-Blocks (if applicable)
+#### Step 5: Create Nested Sub-Blocks (if applicable)
 
 For hierarchical structures:
-
-```json
-{
-  "title": {
-    "he_text": "תת-נושא 1.1",
-    "en_text": "Subtopic 1.1"
-  },
-  "prerequisites": [],
-  "parents": [
-    // Reference to the parent topic block
-  ]
-}
-```
+- Generate child blocks following the same schema
+- Establish parent-child relationships as defined in the schema
+- Maintain consistent structure throughout the hierarchy
 
 ### Phase 3: Review and Validate
 
@@ -148,82 +127,50 @@ For hierarchical structures:
 3. **Offer refinements**: "Would you like to add, remove, or modify any blocks?"
 4. **Validate against schema**: Ensure all blocks conform to the required structure
 
-## Example Output
+## Example Illustration
 
-Here's a simple example course on "Introduction to Programming":
+**Note**: This is a conceptual example to illustrate the course creation process. The actual structure must match the schema you fetch. Do not copy this structure without first validating it against the current schema.
 
-```json
-{
-  "title": {
-    "he_text": "מבוא לתכנות",
-    "en_text": "Introduction to Programming"
-  },
-  "prerequisites": [],
-  "parents": [],
-  "blocks": [
-    {
-      "title": {
-        "he_text": "משתנים וטיפוסי נתונים",
-        "en_text": "Variables and Data Types"
-      },
-      "prerequisites": [],
-      "parents": []
-    },
-    {
-      "title": {
-        "he_text": "מבני בקרה",
-        "en_text": "Control Structures"
-      },
-      "prerequisites": [
-        {
-          "title": {
-            "he_text": "משתנים וטיפוסי נתונים",
-            "en_text": "Variables and Data Types"
-          },
-          "prerequisites": [],
-          "parents": []
-        }
-      ],
-      "parents": []
-    },
-    {
-      "title": {
-        "he_text": "פונקציות",
-        "en_text": "Functions"
-      },
-      "prerequisites": [
-        {
-          "title": {
-            "he_text": "מבני בקרה",
-            "en_text": "Control Structures"
-          },
-          "prerequisites": [],
-          "parents": []
-        }
-      ],
-      "parents": []
-    }
-  ]
-}
-```
+### Example: "Introduction to Programming" Course
+
+**Concept**: A simple programming course with three sequential topics:
+1. Variables and Data Types (foundation)
+2. Control Structures (requires Variables)
+3. Functions (requires Control Structures)
+
+**Structure Considerations**:
+- Each topic is a block with bilingual titles (Hebrew and English)
+- Sequential prerequisites create a learning path
+- The structure should follow whatever relationship model the schema defines
+
+**Your actual output should**:
+- Match the exact property names and structure from the fetched schema
+- Include all required properties
+- Use the correct nesting and reference mechanism
+- Validate against the schema before presenting to the user
 
 ## Best Practices
 
-1. **Start Simple**: Begin with a high-level structure and add detail iteratively
-2. **Validate Early**: Check schema compliance after each major addition
-3. **Be Consistent**: Use consistent naming conventions in both languages
-4. **Explain Dependencies**: Clearly communicate why prerequisites exist
-5. **Iterate**: Allow users to refine and adjust the structure
-6. **Use Nested Objects Wisely**: For complex prerequisites, include full block objects rather than references
+1. **Fetch Before Building**: Always retrieve and analyze the schema before creating any course structure
+2. **Start Simple**: Begin with a high-level structure and add detail iteratively
+3. **Validate Early**: Check schema compliance after each major addition
+4. **Be Consistent**: Use consistent naming conventions across all blocks and in all supported languages
+5. **Explain Dependencies**: Clearly communicate why prerequisites and relationships exist
+6. **Iterate**: Allow users to refine and adjust the structure
+7. **Follow Schema Patterns**: Use the relationship and nesting mechanisms exactly as defined in the schema
+8. **Test Structure**: Verify that the generated structure is valid JSON and conforms to the schema
 
 ## Tips for LLMs
 
-- **Fetch schema dynamically**: Always retrieve the latest schema version to ensure compatibility
+- **Always fetch first**: NEVER assume you know the schema structure. Always fetch and analyze the schema before generating any content
+- **Schema analysis is critical**: Spend time understanding the schema structure, required properties, and relationship mechanisms before creating blocks
+- **Version awareness**: The schema evolves. What worked in one version may not work in another. Always use the current version
 - **Ask clarifying questions**: If user requirements are ambiguous, ask before generating
-- **Show visual representations**: Consider using markdown trees or diagrams to show course structure
-- **Validate JSON**: Ensure all generated JSON is valid and parseable
+- **Show visual representations**: Consider using markdown trees or diagrams to show course structure before generating JSON
+- **Validate rigorously**: Validate generated content against the fetched schema. Use schema validation libraries if available
 - **Handle translations**: If user provides only one language, offer to translate (with their approval)
 - **Save output**: Offer to save the generated course structure to a JSON file
+- **Document your understanding**: When you fetch the schema, briefly explain to the user what structure you found and will be using
 
 ## Troubleshooting
 
