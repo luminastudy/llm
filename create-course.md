@@ -59,22 +59,18 @@ Ask the user the following questions to gather requirements:
    - "What is the main topic or subject of the course you want to create?"
    - Clarify specific areas of focus if the topic is broad
 
-2. **Language Preference**:
-   - "What language(s) will this course be in?"
-   - If bilingual: "Do you have specific content for Hebrew and English, or should I translate?"
-
-3. **Course Structure**:
+2. **Course Structure**:
    - "How would you like to structure this course? For example:"
      - "Linear progression (Topic A → Topic B → Topic C)"
      - "Hierarchical (Main topics with subtopics)"
      - "Networked (Topics with multiple prerequisites)"
    - "Approximately how many main topics or blocks should this course have?"
 
-4. **Prerequisites and Relationships**:
+3. **Prerequisites and Relationships**:
    - "Are there any prerequisite relationships? (e.g., Block A must be completed before Block B)"
    - "Should any blocks be grouped under parent blocks?"
 
-5. **Content Depth**:
+4. **Content Depth**:
    - "Should I create a high-level outline or include detailed sub-blocks?"
 
 ### Phase 2: Generation (Template-Based)
@@ -168,7 +164,6 @@ For hierarchical structures:
 - **Ask clarifying questions**: If user requirements are ambiguous, ask before generating
 - **Show visual representations**: Consider using markdown trees or diagrams to show course structure before generating JSON
 - **Validate rigorously**: Validate generated content against the fetched schema. Use schema validation libraries if available
-- **Handle translations**: If user provides only one language, offer to translate (with their approval)
 - **Save output**: Offer to save the generated course structure to a JSON file
 - **Document your understanding**: When you fetch the schema, briefly explain to the user what structure you found and will be using
 
