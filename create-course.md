@@ -159,6 +159,7 @@ For hierarchical structures:
 
 ## Tips for LLMs
 
+- **Handle non-text files**: If the user provides a file that is not plain text (e.g., PDF, image, Word document), extract the text content first before attempting to read or process it
 - **Always fetch first**: NEVER assume you know the schema structure. Always fetch and analyze the schema before generating any content
 - **Schema analysis is critical**: Spend time understanding the schema structure, required properties, and relationship mechanisms before creating blocks
 - **Version awareness**: The schema evolves. What worked in one version may not work in another. Always use the current version
