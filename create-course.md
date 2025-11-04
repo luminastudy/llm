@@ -122,6 +122,7 @@ For hierarchical structures:
 2. **Explain the relationships**: which blocks depend on which, and the hierarchy
 3. **Offer refinements**: "Would you like to add, remove, or modify any blocks?"
 4. **Validate against schema**: Ensure all blocks conform to the required structure
+5. **Save the output**: Write the validated course structure to `lumin.json` in the root directory of the repository
 
 ## Example Illustration
 
@@ -164,7 +165,7 @@ For hierarchical structures:
 - **Ask clarifying questions**: If user requirements are ambiguous, ask before generating
 - **Show visual representations**: Consider using markdown trees or diagrams to show course structure before generating JSON
 - **Validate rigorously**: Validate generated content against the fetched schema. Use schema validation libraries if available
-- **Save output**: Offer to save the generated course structure to a JSON file
+- **Save output**: Save the generated course structure to a file named `lumin.json` in the root directory of the repository
 - **Document your understanding**: When you fetch the schema, briefly explain to the user what structure you found and will be using
 
 ## Troubleshooting
