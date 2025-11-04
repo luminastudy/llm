@@ -13,11 +13,11 @@ Before beginning, familiarize yourself with the block schema:
    - Use WebFetch or similar tools to retrieve current schema information
 
 2. **Fetch the JSON schema for validation**:
-   - Current version: v0.1
-   - URL: `https://raw.githubusercontent.com/luminastudy/block/main/schema/v0.1/block.schema.json`
-   - Note: Check the README for the latest version number and update accordingly
+   - Extract the current version number from the README
+   - Construct the schema URL: `https://raw.githubusercontent.com/luminastudy/block/main/schema/v<version>/block.schema.json`
+   - Replace `<version>` with the version number found in the README
 
-## Block Schema Structure (v0.1)
+## Block Schema Structure
 
 Each block must contain:
 
@@ -242,4 +242,4 @@ Here's a simple example course on "Introduction to Programming":
 
 - **Schema Repo**: <https://github.com/luminastudy/block>
 - **Schema README**: <https://raw.githubusercontent.com/luminastudy/block/main/README.md>
-- **Current Schema**: <https://raw.githubusercontent.com/luminastudy/block/main/schema/v0.1/block.schema.json>
+- **Schema URL Pattern**: `https://raw.githubusercontent.com/luminastudy/block/main/schema/v<version>/block.schema.json`

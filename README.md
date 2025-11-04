@@ -17,7 +17,7 @@ This repository serves as a central hub for LLM-consumable instructions that ena
 - Guides LLMs through a hybrid workflow combining interactive questioning and template-based generation
 - Dynamically fetches the latest block schema version from the official repository
 - Walks through course topic discovery, structure planning, and block hierarchy design
-- Ensures all generated content validates against the official JSON schema (v0.1+)
+- Ensures all generated content validates against the official JSON schema
 - Supports bilingual content creation (Hebrew and English)
 - Handles prerequisite relationships and parent-child block hierarchies
 
@@ -36,8 +36,8 @@ This repository serves as a central hub for LLM-consumable instructions that ena
 
 - **Block Schema Repository**: https://github.com/luminastudy/block
 - **Latest Schema README**: https://raw.githubusercontent.com/luminastudy/block/main/README.md
-- **Current Version**: v0.1
-- **Schema Location**: https://raw.githubusercontent.com/luminastudy/block/main/schema/v0.1/block.schema.json
+- **Schema URL Pattern**: `https://raw.githubusercontent.com/luminastudy/block/main/schema/v<version>/block.schema.json`
+  - Extract version from README and replace `<version>` in the URL
 
 ## Contributing
 
